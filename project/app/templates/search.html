@@ -1,0 +1,75 @@
+
+{% extends 'home.html' %}
+|{% load static %}
+
+{% block admin %}
+    
+    <!-- Recent Sales Start -->
+     <div class="container-fluid pt-4 px-4">
+        <div class="bg-light text-center rounded p-4">
+            <div class="d-flex align-items-center justify-content-between mb-4">
+                <h6 class="mb-0">My Expense Manager</h6> 
+                <a class="btn btn-sm btn-primary" href=""><button>Filter by Date Expenses</button></a>
+               
+
+                <div class="modal-search-header flex-c-m trans-04 js-hide-modal-search">
+                    <div class="container-search-header">
+                      
+        
+                        <form action="{% url 'search' %}" method="get" class="wrap-search-header flex-w p-l-15">
+                       
+                            <input class="plh3" type="text" name="search" placeholder="Search...">
+                        </form>
+                    </div>
+                </div>
+
+                <a class="btn btn-sm btn-primary" href="{% url 'add_expenses' %}"><button>New Expenses</button></a>
+            </div>
+            <div class="table-responsive">
+                <table class="table text-start align-middle table-bordered table-hover mb-0">
+                    <thead>
+                        <tr class="text-dark">
+                          
+                            <th scope="col">Name</th>
+                            <th scope="col">Category</th>
+                            <th scope="col">Date of Expenses</th>
+                            <th scope="col">Amount</th>
+                            <th scope="col">Updated at</th>
+                            <th scope="col">Created by</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in  item %}
+                        <tr>
+                            <td>{{i.name}}</td>
+                            <td>{{i.category}}</td>
+                            <td>{{i.date}}</td>
+                            <td>{{i.amount}}</td>
+                            <td>{{i.updated_at}}</td>
+                            <td>{{i.created_by.name}}</td>
+                 
+                            <td><a href="{% url 'edit' i.id %}"><button class="btn-primary">Edit</button></a></td>
+                            <!-- <td><button onclick="editRow(this)">Edit</button></td> -->
+                            <td>
+
+                                <form action="{% url 'delete_item' i.id %}" method="post" onsubmit="confirmDelete(event)">
+                                    {% csrf_token %}
+                                    <button class="btn-danger" type="submit">Delete</button>
+                                </form>
+                            </td>
+                         
+                        </tr>
+                        {% empty %}
+                        <h5>RESULT NOT FOUND</h5>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                
+            </div>
+        </div>
+    </div>
+    <!-- Recent Sales End -->
+
+    {% endblock %}

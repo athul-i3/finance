@@ -1,0 +1,84 @@
+
+{% extends 'home.html' %}
+|{% load static %}
+
+{% block admin %}
+
+
+<div style="margin: 5px; ;" class="col-sm-12 col-xl-6">
+	<div  class="bg-light rounded h-100 p-4">
+		<h6 style="color: rgb(0, 0, 0);" class="mb-4">Products Input</h6>
+		{% for i in run %}
+
+		<form action="{% url 'update' i.id %}" method="post" enctype="multipart/form-data">
+           
+
+			{% csrf_token %}
+			<!-- <label for="categories" class="form-label">Select Category</label>
+                        <select name="category" id="" class="form-control">
+                            <option value="">Select categories</option>
+                
+                            
+                                    {% if selected_category %}
+                                    <option value="{{selected_category.id}}" selected>{{selected_category.cat_name}}</option>
+                                        {% for j in category_details  %}
+                                            {% if j.cat_name != selected_category.cat_name %}
+                                                <option value="{{j.id}}">{{j.cat_name}}</option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
+                            
+                        
+                        </select> -->
+			<div class="mb-3">
+				<label for="formFileMultiple" style="color: rgb(0, 0, 0);" class="form-label">Name</label>
+				<div class="form-group">
+                    <input  style="width: 440px;" class="input" type="text" name="name" value="{{i.name}}" placeholder="Name of Expenses">
+                </div>
+            </div>	
+          
+			<div class="mb-3">
+                <label for="formFileMultiple" style="color: rgb(0, 0, 0);" class="form-label">Description </label>
+				<div class="form-group">
+					<input  style="width: 440px;" class="input" type="text" name="description" value="{{ i.description }}" placeholder="Describe the Expense ">
+				</div>
+			</div>	
+            <div class="mb-3 "  >
+				<label for="select category" class="form-label"> Select Category</label>
+				<select name="category" class="form-control" id="">
+                    {% for category in categories %}
+                        {% if category == i.category %}
+                        <option value="{{ category }}" selected>{{ category }}</option>
+                        {% else %}
+                        <option value="{{ category }}">{{ category }}</option>
+                        {% endif %}
+                    {% endfor %}
+				</select>
+
+	
+	
+			</div>
+            <div class="mb-3">
+                <label for="formFileMultiple" style="color: rgb(0, 0, 0);" class="form-label">Date </label>
+				<div class="form-group">
+					<input  style="width: 440px;" class="input" type="date" name="date" value="{{ i.date|date:'Y-m-d'  }}" placeholder="Date of Expenses">
+				</div>
+			</div>	
+		
+
+            <div class="mb-3">
+                <label for="formFileMultiple" style="color: rgb(10, 8, 6);" class="form-label">Expense Amount</label>
+				<div class="form-group">
+					<input  style="width: 440px;" class="input" type="text" name="expense" value="{{ i.amount }}" placeholder="Expenses Amount in INR ">
+				</div>
+			</div>	
+            <button  type="button" onclick="window.location.href='{% url 'home' %}';">Cancel</button>
+			<input  class="btn-primary" style="color: aliceblue; margin-left: 300px;" type="submit" id="update">
+
+		</form>
+        {% endfor  %}
+		
+	</div>
+</div>
+
+{% endblock %}

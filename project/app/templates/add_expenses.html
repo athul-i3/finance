@@ -1,0 +1,68 @@
+{% extends 'home.html' %}
+|{% load static %}
+
+{% block admin %}
+
+
+<div style="margin: 5px; ;" class="col-sm-12 col-xl-6">
+	<div class="bg-light rounded h-100 p-4">
+		<h4 style="color: rgb(0, 0, 0);" class="mb-6">Create New Expenses</h4>
+
+		<form action="{% url 'add_expenses' %}" method="post" enctype="multipart/form-data">
+           
+
+			{% csrf_token %}
+
+			
+			
+			<div  class="mb-3">
+                <label for="formFileMultiple" class="form-label">Name</label>
+				<div class="form-group">
+					<input style="width: 440px;" class="input" type="text" name="name" placeholder="Name of Expenses">
+				</div>
+			</div>	
+			<div  class="mb-3">
+                <label for="formFileMultiple" class="form-label">Description</label>
+				<div class="form-group">
+					<input style="width: 440px;" class="input" type="text" name="description" placeholder="Describe the Expense">
+				</div>
+			</div>	
+			<div class="mb-3 "  >
+				<label for="select category" class="form-label"> Select Category</label>
+				<select name="category" class="form-control" id="">
+				<option value="">select category</option>
+				<option value="Health">Health</option>
+				<option value="Electronics">Electronics</option> 
+				<option value="Travel">Travel</option>
+				<option value="Education">Education</option>
+				<option value="Books">Books</option>
+				<option value="Others">Others</option>	   
+				</select>
+
+	
+	
+			</div>
+
+			<div class="mb-3">
+                <label for="formFileMultiple" class="form-label">Date</label>
+				<div class="form-group">
+					<input style="width: 440px;" class="input" type="date" name="date" placeholder="Date of Expenses ">
+				</div>
+			</div>	
+            <div class="mb-3">
+                <label for="formFileMultiple" class="form-label">Expense Amount</label>
+				<div class="form-group">
+					<input style="width: 440px;" class="input" type="text" name="expense" placeholder="Expenses Amount in INR ">
+				</div>
+			</div>	
+			
+            <button  type="button" onclick="window.location.href='{% url 'home' %}';">Cancel</button>
+			<button style="margin-left: 300px;" class="btn btn-primary" type="submit" title="it is used to add ">add</button>
+			
+		
+		</form>
+		
+	</div>
+</div>
+
+{% endblock %}

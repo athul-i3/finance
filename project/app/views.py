@@ -123,13 +123,29 @@ def logout(request):
 def search(request):
     search_name=request.GET['search']
     if search_name:
-        name_search=Expenses.objects.filter(name__icontains=search_name)
-       
-        item=name_search
+
+        name=request.session.get('name')
+        user=User.objects.get(id=request.session.get('id'))
+        if user.is_admin:
+            datas=Expenses.objects.filter(name__icontains=search_name)
+        else:
+            datas=Expenses.objects.filter(created_by=user,name__icontains=search_name)
         context={
-            'item':item
+            'datas':datas,
+            'user':user,
+            'name':name
         }
-        return render(request,'search.html',context)
+        return render(request,'home.html',context)
+
+    # search_name=request.GET['search']
+    # if search_name:
+    #     name_search=Expenses.objects.filter(name__icontains=search_name)
+       
+    #     item=name_search
+    #     context={
+    #         'item':item
+    #     }
+    #     return render(request,'search.html',context)
 
 def filter1(request):
     by_date=request.GET['search1']
